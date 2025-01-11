@@ -21,7 +21,7 @@ class NetworkRepositoryMhs(
 
     override fun getAllMhs(): Flow<List<Mahasiswa>> = callbackFlow{
         val mhsCollection = firestore.collection("Mahasiswa")
-            .orderBy("nim", Query.Direction.ASCENDING)
+            .orderBy("nim", Query.Direction.DESCENDING)
             .addSnapshotListener{
                     value, error ->
                 if (value != null){
