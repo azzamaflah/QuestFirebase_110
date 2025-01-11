@@ -1,9 +1,13 @@
 package com.example.firebase.ui.view
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -13,11 +17,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.firebase.ui.viewmodel.FormState
+import com.example.firebase.ui.viewmodel.InsertUiState
 import com.example.firebase.ui.viewmodel.InsertViewModel
+import com.example.firebase.ui.viewmodel.MahasiswaEvent
 import com.example.firebase.ui.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -87,6 +95,45 @@ fun InsertMhsView(
                     }
                 }
             )
+        }
+    }
+}
+
+@Composable
+fun InsertBodyMhs(
+    modifier: Modifier = Modifier,
+    onValueChange: (MahasiswaEvent) -> Unit,
+    uiState: InsertUiState,
+    onClick: () -> Unit,
+    homeUiState: FormState
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        FormMahasiswa(
+            mahasiswaEvent = uiState.insertUiEvent,
+            onValueChange = onValueChange,
+            errorState = uiState.isEntryValid,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth(),
+            enabled = homeUiState !is FormState.Loading,
+        ) {
+            if (homeUiState is FormState.Loading) {
+                CircularProgressIndicator(
+                    color = Color.White,
+                    modifier = Modifier
+                        .size(20.dp)
+                        .padding(end = 8.dp)
+                )
+                Text("Loading...")
+            } else {
+                Text("Add")
+            }
         }
     }
 }
