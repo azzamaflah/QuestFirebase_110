@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.firebase.ui.navigasi.PengelolaHalaman
 import com.example.firebase.ui.theme.FirebaseTheme
 import com.example.firebase.ui.view.HomeScreen
 
@@ -20,16 +21,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FirebaseTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(
-                        navigateToItemEntry = {}, modifier = Modifier.padding(innerPadding)
-                    )
+                    PengelolaHalaman(modifier = Modifier)
                 }
             }
         }
     }
-}
-
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(

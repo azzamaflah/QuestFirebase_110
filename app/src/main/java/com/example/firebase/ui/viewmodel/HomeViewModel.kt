@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class HomeViewModel (
+class HomeViewModel(
     private val repoMhs: RepositoryMhs
 ) : ViewModel() {
 
@@ -40,20 +40,19 @@ class HomeViewModel (
                 }
         }
     }
-
-    fun deleteMhs(mahasiswa: Mahasiswa) {
+    fun deleteMhs(mahasiswa: Mahasiswa){
         viewModelScope.launch {
             try {
                 repoMhs.deleteMhs(mahasiswa)
-            } catch (e: Exception) {
+            }catch (e:Exception){
                 mhsUiState = HomeUiState.Error(e)
             }
         }
     }
+}
 
-    sealed class HomeUiState {
-        object Loading : HomeUiState()
-        data class Success(val data: List<Mahasiswa>) : HomeUiState()
-        data class Error(val e: Throwable) : HomeUiState()
-    }
+sealed class HomeUiState {
+    object Loading : HomeUiState()
+    data class Success(val data: List<Mahasiswa>) : HomeUiState()
+    data class Error(val e: Throwable) : HomeUiState()
 }

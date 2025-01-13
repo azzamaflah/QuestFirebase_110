@@ -1,4 +1,4 @@
-package com.example.firebase.ui.destinasi
+package com.example.firebase.ui.navigasi
 
 interface DestinasiNavigasi{
     val route: String
@@ -13,4 +13,10 @@ object DestinasiHome : DestinasiNavigasi {
 object DestinasiInsert : DestinasiNavigasi {
     override val route: String = "insert"
     override val titleRes: String = "Insert"
+}
+
+object DestinasiDetail : DestinasiNavigasi {
+    override val route = "detail_matakuliah"
+    const val KODE = "kode"
+    val routesWithArg = "$route/{$KODE}"
 }
